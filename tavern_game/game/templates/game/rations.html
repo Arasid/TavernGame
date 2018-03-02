@@ -14,12 +14,14 @@
         <h3>Dávky</h3>
         <table class="table table-condensed table-bordered">
             <thead>
+                <th>#</th>
                 <th>Meno</th>
                 <th class="text-center">Dávky</th>
             </thead>
             <tbody>
                 {% for ration_person in ration_people %}
                     <tr>
+                        <td>{{ ration_person.rank }}</td>
                         <td>{{ ration_person.person__name }}</td>
                         <td class="text-center"><b>{{ ration_person.sum }}</b></td>
                     </tr>

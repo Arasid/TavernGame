@@ -16,6 +16,14 @@ def index(request):
 def rations(request):
     ration_people = Ration.objects.values('person', 'person__name').annotate(sum=Sum('value')).order_by('-sum')
 
+    last_sum = -1
+    last_order = 0
+    for ration in ration_people:
+        if ration['sum'] != last_sum:
+            last_order += 1
+            last_sum = ration['sum']
+            ration['rank'] = last_order
+
     context_dict = {
         'ration_people': ration_people,
     }
@@ -51,6 +59,14 @@ def add_rations(request):
 def bar_purchases(request):
     bar_people = BarPurchase.objects.values('person', 'person__name').annotate(sum=Sum('value')).order_by('-sum')
 
+    last_sum = -1
+    last_order = 0
+    for bar in bar_people:
+        if bar['sum'] != last_sum:
+            last_order += 1
+            last_sum = bar['sum']
+            bar['rank'] = last_order
+
     context_dict = {
         'bar_people': bar_people,
     }
@@ -79,6 +95,14 @@ def add_bar_purchase(request):
 
 def rich_people(request):
     rich_people = RichPerson.objects.order_by('-value')
+
+    last_value = -1
+    last_order = 0
+    for rich in rich_people:
+        if rich.value != last_value:
+            last_order += 1
+            last_value = rich.value
+            rich.rank = last_order
 
     context_dict = {
         'rich_people': rich_people,

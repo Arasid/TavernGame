@@ -14,12 +14,14 @@
         <h3>Najbohatší ľudia</h3>
         <table class="table table-condensed table-bordered">
             <thead>
+                <th>#</th>
                 <th>Meno</th>
                 <th class="text-center">Majetok</th>
             </thead>
             <tbody>
                 {% for rich_person in rich_people %}
                     <tr>
+                        <td>{{ rich_person.rank }}</td>
                         <td>{{ rich_person.person.name }}</td>
                         <td class="text-center"><b>{{ rich_person.value }}</b></td>
                     </tr>
