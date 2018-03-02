@@ -15,10 +15,12 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li><a href="{% url 'rations' %}">Rations</a></td>
+                <li><a href="{% url 'bar_purchases' %}">Bar purchases</a></td>
                 <li><a href="{% url 'rich_people' %}">Rich people</a></td>
                 {% if user.is_authenticated %}
                     {% if user.is_staff %}
                         <li><a href="{% url 'add_rations' %}">Add rations</a></td>
+                        <li><a href="{% url 'add_bar_purchase' %}">Add bar purchase</a></td>
                         <li><a href="{% url 'rich_fortune' %}">Set rich fortune</a></td>
                     {% endif %}
                 {% endif %}

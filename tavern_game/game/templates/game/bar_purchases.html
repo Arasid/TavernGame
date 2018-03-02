@@ -1,0 +1,30 @@
+{% extends 'game/main.html' %}
+
+{% block title %}Barové účty{% endblock %}
+{% block head %}
+<meta http-equiv="refresh" content="30">
+{% endblock %}
+
+{% block content %}
+    {% if error is not None %}
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+    {% else %}
+        <h3>Barové účty</h3>
+        <table class="table table-condensed table-bordered">
+            <thead>
+                <th>Meno</th>
+                <th class="text-center">Účet</th>
+            </thead>
+            <tbody>
+                {% for bar_person in bar_people %}
+                    <tr>
+                        <td>{{ bar_person.person__name }}</td>
+                        <td class="text-center"><b>{{ bar_person.sum }}</b></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}

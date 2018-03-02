@@ -12,6 +12,15 @@ class AddRationsForm(forms.Form):
     value = forms.IntegerField(min_value=1)
 
 
+class AddBarPurchaseForm(forms.Form):
+    person = forms.ModelChoiceField(
+            queryset=Person.objects.all(),
+            widget=forms.Select(),
+            empty_label=None,
+    )
+    value = forms.IntegerField(min_value=1)
+
+
 class RichPersonForm(forms.Form):
     person = forms.ModelChoiceField(
             queryset=Person.objects.all(),

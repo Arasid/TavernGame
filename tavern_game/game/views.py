@@ -7,8 +7,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import Count, Sum
 
-from .models import Ration, RichPerson
-from .forms import AddRationsForm, RichPersonForm
+from .models import Ration, BarPurchase, RichPerson
+from .forms import AddRationsForm, AddBarPurchaseForm, RichPersonForm
 
 def index(request):
     return render(request, 'game/index.html', {})
@@ -47,6 +47,35 @@ def add_rations(request):
         'form': form,
     }
     return render(request, 'game/add_rations.html', context_dict)
+
+def bar_purchases(request):
+    bar_people = BarPurchase.objects.values('person', 'person__name').annotate(sum=Sum('value')).order_by('-sum')
+
+    context_dict = {
+        'bar_people': bar_people,
+    }
+    return render(request, 'game/bar_purchases.html', context_dict)
+
+@login_required
+@staff_member_required
+def add_bar_purchase(request):
+    if request.method == 'POST':
+        form = AddBarPurchaseForm(request.POST)
+        if form.is_valid():
+            person = form.cleaned_data.get('person')
+            value = form.cleaned_data.get('value')
+
+            rich = BarPurchase.objects.create(
+                    person=person,
+                    value=value)
+
+            return redirect('add_bar_purchase')
+    else:
+        form = AddBarPurchaseForm()
+    context_dict = {
+        'form': form,
+    }
+    return render(request, 'game/add_bar_purchase.html', context_dict)
 
 def rich_people(request):
     rich_people = RichPerson.objects.order_by('-value')
