@@ -1,0 +1,59 @@
+{% extends 'game/main.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Pridaj duel{% endblock %}
+
+{% block style %}
+    {{ block.super }}
+    #id_person {
+        overflow: hidden;
+    }
+    #rich-fortune-btn {
+        width: 100%;
+    }
+{% endblock %}
+
+{% block content %}
+<h1>Add duel</h1>
+
+{% if form.non_field_errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ form.non_field_errors }}
+    </div>
+{% endif %}
+
+<form id="rich_fortune_duel" method="post" action="/game/rich_fortune/">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col col-md-6">
+            <div class="form-group">
+                <label for="id_person">People</label>
+                <select class="form-control" id="id_person" name="person" size={{ form.person | length }}>
+                    {% for person in form.person %}
+                        <option
+                            value="{{ person.data.value }}"
+                            {% if person.data.attrs.selected %}selected{% endif %}
+                        >{{ person.data.label }}</option>
+                    {% endfor %}
+                <select>
+            </div>
+            {% if form.person.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ form.person.errors }}
+                </div>
+            {% endif %}
+        </div>
+        <div class="col col-md-6">
+            <div class="form-group">
+                <label for="id_value">Fortune</label>
+                {{ form.value | add_class:"form-control" }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-md-12">
+            <button type="submit" class="btn btn-primary btn-lg" id="rich-fortune-btn">Set fortune</button>
+        </div>
+    </div>
+</form>
+{% endblock %}

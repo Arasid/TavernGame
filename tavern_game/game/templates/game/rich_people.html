@@ -1,0 +1,30 @@
+{% extends 'game/main.html' %}
+
+{% block title %}Najbohatší ľudia{% endblock %}
+{% block head %}
+<meta http-equiv="refresh" content="30">
+{% endblock %}
+
+{% block content %}
+    {% if error is not None %}
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+    {% else %}
+        <h3>Najbohatší ľudia</h3>
+        <table class="table table-condensed table-bordered">
+            <thead>
+                <th>Meno</th>
+                <th class="text-center">Majetok</th>
+            </thead>
+            <tbody>
+                {% for rich_person in rich_people %}
+                    <tr>
+                        <td>{{ rich_person.person.name }}</td>
+                        <td class="text-center"><b>{{ rich_person.value }}</b></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}

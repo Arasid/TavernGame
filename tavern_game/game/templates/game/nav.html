@@ -8,16 +8,16 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/game">DuelGame</a>
+            <a class="navbar-brand" href="/game">TavernGame</a>
         </div>
 
 <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="#">Points</a></td>
+                <li><a href="{% url 'rich_people' %}">Rich people</a></td>
                 {% if user.is_authenticated %}
                     {% if user.is_staff %}
-                        <li><a href="#">Add duel</a></td>
+                        <li><a href="{% url 'rich_fortune' %}">Set rich fortune</a></td>
                     {% endif %}
                 {% endif %}
             </ul>
