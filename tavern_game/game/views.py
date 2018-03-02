@@ -8,7 +8,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import Count, Sum
 
 from .models import Ration, RichPerson
-from .forms import AddRationForm, RichPersonForm
+from .forms import AddRationsForm, RichPersonForm
 
 def index(request):
     return render(request, 'game/index.html', {})
@@ -25,10 +25,12 @@ def rations(request):
 @staff_member_required
 def add_rations(request):
     if request.method == 'POST':
-        form = AddRationForm(request.POST)
+        form = AddRationsForm(request.POST)
         if form.is_valid():
             person = form.cleaned_data.get('person')
             value = form.cleaned_data.get('value')
+
+            request.session['last_value'] = value
 
             for p in person:
                 rich = Ration.objects.create(
@@ -37,7 +39,10 @@ def add_rations(request):
 
             return redirect('add_rations')
     else:
-        form = AddRationForm()
+        if request.session.get('last_value', 0):
+            form = AddRationsForm(initial={'value': request.session.get('last_value')})
+        else:
+            form = AddRationsForm()
     context_dict = {
         'form': form,
     }

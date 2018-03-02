@@ -122,3 +122,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 LOGIN_URL = '/game/login/'
 LOGIN_REDIRECT_URL = '/game/'
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'

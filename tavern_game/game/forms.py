@@ -4,7 +4,7 @@ from django.db.models import Q
 from game.models import Person, Ration, BarPurchase, RichPerson
 
 
-class AddRationForm(forms.Form):
+class AddRationsForm(forms.Form):
     person = forms.ModelMultipleChoiceField(
             queryset=Person.objects.all(),
             widget=forms.SelectMultiple(),
