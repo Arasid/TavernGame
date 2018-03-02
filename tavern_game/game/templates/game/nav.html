@@ -14,14 +14,14 @@
 <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="{% url 'rations' %}">Rations</a></td>
-                <li><a href="{% url 'bar_purchases' %}">Bar purchases</a></td>
-                <li><a href="{% url 'rich_people' %}">Rich people</a></td>
+                <li><a href="{% url 'rations' %}">Dávky</a></td>
+                <li><a href="{% url 'bar_purchases' %}">Barové účty</a></td>
+                <li><a href="{% url 'rich_people' %}">Najbohatší ľudia</a></td>
                 {% if user.is_authenticated %}
                     {% if user.is_staff %}
-                        <li><a href="{% url 'add_rations' %}">Add rations</a></td>
-                        <li><a href="{% url 'add_bar_purchase' %}">Add bar purchase</a></td>
-                        <li><a href="{% url 'rich_fortune' %}">Set rich fortune</a></td>
+                        <li><a href="{% url 'add_rations' %}">Pridaj dávku</a></td>
+                        <li><a href="{% url 'add_bar_purchase' %}">Pridaj barový účet</a></td>
+                        <li><a href="{% url 'rich_fortune' %}">Nastav bohatému stav</a></td>
                     {% endif %}
                 {% endif %}
             </ul>

@@ -1,7 +1,7 @@
 {% extends 'game/main.html' %}
 {% load widget_tweaks %}
 
-{% block title %}Set fortune{% endblock %}
+{% block title %}Nastav bohatému stav{% endblock %}
 
 {% block style %}
     {{ block.super }}
@@ -14,7 +14,7 @@
 {% endblock %}
 
 {% block content %}
-<h1>Set Fortune</h1>
+<h1>Nastav bohatému stav</h1>
 
 {% if form.non_field_errors %}
     <div class="alert alert-danger" role="alert">
@@ -27,7 +27,7 @@
     <div class="row">
         <div class="col col-md-6">
             <div class="form-group">
-                <label for="id_person">People</label>
+                <label for="id_person">Ľudia</label>
                 <select class="form-control" id="id_person" name="person" size={{ form.person | length }}>
                     {% for person in form.person %}
                         <option
@@ -45,14 +45,14 @@
         </div>
         <div class="col col-md-6">
             <div class="form-group">
-                <label for="id_value">Fortune</label>
+                <label for="id_value">Stav</label>
                 {{ form.value | add_class:"form-control" }}
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col col-md-12">
-            <button type="submit" class="btn btn-primary btn-lg" id="rich-fortune-btn">Set fortune</button>
+            <button type="submit" class="btn btn-success btn-lg" id="rich-fortune-btn">Nastav</button>
         </div>
     </div>
 </form>
