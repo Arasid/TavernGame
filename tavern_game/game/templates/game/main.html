@@ -1,0 +1,30 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <link rel="stylesheet" href="{% static 'game/css/bootstrap.min.css' %}">
+        <link rel="icon" type="image/png" href="{% static "game/favicon.ico" %}"/>
+        <title>{% block title %}DuelGame{% endblock %}</title>
+        <style>
+            {% block style %}{% endblock %}
+        </style>
+        {% block head %}{% endblock %}
+    </head>
+
+    <body>
+        <div class="container">
+            {% include 'game/nav.html' %}
+            {% block content %}
+            {% endblock %}
+        </div>
+
+
+        {% block js %}
+            <script src="{% static 'game/js/jquery-latest.min.js' %}" type="text/javascript"></script>
+            <script src="{% static 'game/js/popper.min.js' %}" type="text/javascript"></script>
+            <script src="{% static 'game/js/bootstrap.min.js' %}" type="text/javascript"></script>
+        {% endblock js %}
+    </body>
+
+</html>

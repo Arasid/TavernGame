@@ -1,0 +1,12 @@
+{% extends 'game/main.html' %}
+
+{% block title %}Editor{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <h1>DuelGame says... hello {{ user.username }}!</h1>
+    {% else %}
+        <h1>Hello UfoPrask!</h1>
+        <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+    {% endif %}
+{% endblock %}
