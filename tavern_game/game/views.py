@@ -5,13 +5,43 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
-from django.db.models import Count
+from django.db.models import Count, Sum
 
-from .models import RichPerson
-from .forms import RichPersonForm
+from .models import Ration, RichPerson
+from .forms import AddRationForm, RichPersonForm
 
 def index(request):
     return render(request, 'game/index.html', {})
+
+def rations(request):
+    ration_people = Ration.objects.values('person', 'person__name').annotate(sum=Sum('value')).order_by('-sum')
+
+    context_dict = {
+        'ration_people': ration_people,
+    }
+    return render(request, 'game/rations.html', context_dict)
+
+@login_required
+@staff_member_required
+def add_rations(request):
+    if request.method == 'POST':
+        form = AddRationForm(request.POST)
+        if form.is_valid():
+            person = form.cleaned_data.get('person')
+            value = form.cleaned_data.get('value')
+
+            for p in person:
+                rich = Ration.objects.create(
+                        person=p,
+                        value=value)
+
+            return redirect('add_rations')
+    else:
+        form = AddRationForm()
+    context_dict = {
+        'form': form,
+    }
+    return render(request, 'game/add_rations.html', context_dict)
 
 def rich_people(request):
     rich_people = RichPerson.objects.order_by('-value')
@@ -20,7 +50,6 @@ def rich_people(request):
         'rich_people': rich_people,
     }
     return render(request, 'game/rich_people.html', context_dict)
-
 
 @login_required
 @staff_member_required
